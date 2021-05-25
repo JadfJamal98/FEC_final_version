@@ -1,5 +1,5 @@
 from sys import path
-from sec_edgar_downloader import Downloader
+#from sec_edgar_downloader import Downloader
 import os, re
 import numpy as np
 

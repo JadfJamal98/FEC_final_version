@@ -101,7 +101,7 @@ pa = os.getcwd().replace('\\', '/') +'/Top 40'
 tickers,years_for_each = find_good(pa)
 types = ["10-K","DEF 14A"]
 
-findhtml(pa,tickers,types)
+#findhtml(pa,tickers,types)
 
 
 

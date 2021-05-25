@@ -1,9 +1,10 @@
 import numpy as np 
-from data_mining import *
+#from data_mining import *
 from collections import Counter
 #from matplotlib import pyplot as plt
 from importingEXCEL import *
 from selection import *
+from text_writer import *
 
 def get_words(dictonary):
     # returns all words from a specific topic regardless of the categories and subcategories
