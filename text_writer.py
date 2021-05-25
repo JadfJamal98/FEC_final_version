@@ -9,6 +9,46 @@ from selection import *
 if not os.path.isdir(os.getcwd().replace('\\', '/') +'/Top 40/statements'):
     os.makedirs(os.getcwd().replace('\\', '/') +'/Top 40/statements')
 
+def tokenize(text, sw):
+    """
+    This function tokenizes the given text in a list of single words
+    ============================================================================================
+    Input:
+    ------
+    text: file object, path to opened txt file with encoding ='utf-8'
+    sw: list, list of stop words
+    Output:
+    -------
+    filtered: list, list of words presents in the input text
+    """
+    
+    #get lines from text
+    lines = text.readlines() 
+
+    #tokenize text
+    clr = []
+    for i in lines:
+        if ' ' in i:
+            clr.append(i)
+        else:
+            continue
+    final_list = []
+    if len(clr) == 1:
+        final_list = clr[0].split(' ')
+    else:
+        for l in clr:
+            final_list += l.replace('\n',' ').split(' ')
+
+    fl = np.array(final_list).squeeze()
+    filtered = []
+    for word in fl:
+        if word.lower() in sw or len(word)>25 or not word.isalpha():
+            continue
+        else:
+            filtered.append(word.lower())
+    
+    return filtered    
+
 def writingtxt(pathf,ticker,typ,save_path):
 
     filing_code = pathf.split('/')
