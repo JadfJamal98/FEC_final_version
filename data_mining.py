@@ -6,7 +6,11 @@ from sec_edgar_downloader import Downloader
 import os
 
 
+########################
 
+#NOT USED 
+
+########################
 def writingtxt(pathf,ticker,nb,typ):
     """
     This function takes location of the .html files, takes out the tables and html coding from the file, and writes only
