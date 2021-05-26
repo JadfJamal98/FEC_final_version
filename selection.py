@@ -1,5 +1,4 @@
 from sys import path
-#from sec_edgar_downloader import Downloader
 import os, re
 import numpy as np
 
@@ -26,7 +25,7 @@ tickers = ["AAPL","MSFT","AMZN","GOOGL","FB","TSLA",
         "JNJ","WMT","JPM","MA","PG",
         "UNH","NVDA","DIS","HD","PYPL","BAC","VZ","CMCSA",
         "ADBE","NFLX","KO","NKE","MRK","T","PFE","PEP","CRM",
-        "INTC","ORCL","ABT","CSCO","ABBV","TMO","AVGO","XOM","QCOM","TMUS"]
+        "INTC","ORCL","ABT","CSCO","ABBV","TMO","AVGO","XOM","QCOM","TMUS", 'WFC', 'BLK']
 
 def find_good(pa):
     good_ones = []
@@ -57,11 +56,18 @@ def find_good(pa):
                 all_years.update({tick + '_' + typ : y})
             years = []
     doubles = []
-    for l in tickers:
-        numbers = good_ones.count(l)
+    for tick in tickers:
+        numbers = good_ones.count(tick)
         if numbers == 2:
-            doubles.append(l)
+            doubles.append(tick)
+        else:
+            key_0 = tick + '_' + types[0]
+            key_1 = tick + '_' + types[1]
+            if key_0 in all_years.keys() and key_1 not in all_years.keys():
+                all_years.pop(key_0)
+            elif key_1 in all_years.keys() and key_0 not in all_years.keys():
+                all_years.pop(key_1)
 
     return doubles, all_years
 
-#to_keep_tick, to_keep_years = find_good(pa)
+
