@@ -2,9 +2,11 @@
 Sentiment analysis on 10-k reports and proxy statements to study how companies' awareness on ESG matters changed over time.
 
 
-Check list Bag of Words:
-    1. Final score for each company
-    2. Plotting of single topcics for each sector and final score for each sector
-    3. Average score for each topic by computing average over companies and plot those 
+Check List Plots:
 
-Check list Word Two Vec:
+    1. Per Sector: do a plot per topic displaying all companies in the sector
+    2. Per Sector: do a plot with total score E + S + G displaying all companies in the sector
+    3. Per Topic: sector average for all sectors
+    4. Total scores per sector 
+    5. Top 5 and Bottom 5 companies total scores
+    6. Table stating total scores for all comanies
