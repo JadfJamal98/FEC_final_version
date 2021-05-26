@@ -67,7 +67,7 @@ def writingtxt(pathf,ticker,typ,save_path):
     for table in ltables: # removing the table
 
         table.decompose()
-    
+   
     new_text_file = open(file_name, "w+", encoding = 'utf-8') #opening a new .txt file with filename
 
     new_text_file.write(soup.text) # writing the text of the report in the .txt file
