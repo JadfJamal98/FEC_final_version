@@ -42,9 +42,15 @@ def score_c_t(topic,tick,typ,nolist):
 
     _ , listyear = find_good(pa) # list of years for a specific company and type
     listyear = listyear[tick + "_" + typ] # we want only the list where the current typ and ticker is concerned
-    
-    file_names = [typ + "_" + tick + "_" + str(year) for year in listyear] # creates the list of filenames to open
-    
+  
+    file_names = []
+
+    for year in listyear:
+        y = str(year)
+        if len(y) < 2:
+            y = str(0) + y
+        file_names.append(typ + "_" + tick + "_" + y)
+
 
     for name in file_names: # looping through all file names
 
