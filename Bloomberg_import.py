@@ -67,25 +67,30 @@ def retrieve_score(wb,tick,increase,write):
     #            - define the possible error list that could be
     #            - create a file name to append at the end
 
-    if increase:
-        if  not os.path.isdir(os.getcwd().replace("\\","/") + "/Bloomberg_Score_Change"):
-            os.makedirs(os.getcwd().replace("\\","/") + "/Bloomberg_Score_Change")
+    if increase==True:
+        if write==True:
+            if  not os.path.isdir(os.getcwd().replace("\\","/") + "/Bloomberg_Score_Change"):
+                os.makedirs(os.getcwd().replace("\\","/") + "/Bloomberg_Score_Change")
+            filename = os.getcwd().replace("\\","/") + '/Bloomberg_Score_Change'+'/Bsi_'+tick+'.txt'
 
         list_cell = ['AD'+ str(row),'AE'+ str(row),'AF'+ str(row),'AG'+ str(row),'AH'+ str(row),'AI'+ str(row),\
                     'AJ'+ str(row),'AK'+ str(row),'AL'+ str(row),'AM'+ str(row),'AN'+ str(row),'AO'+ str(row),\
                     'AP'+ str(row)]
         er = ["#DIV/0!","#VALUE!"]
-        filename = os.getcwd().replace("\\","/") + '/Bloomberg_Score_Change'+'/Bsi_'+tick+'.txt'
+        
 
     else:
-        if  not os.path.isdir(os.getcwd().replace("\\","/") + "/Bloomberg_Score"):
-            os.makedirs(os.getcwd().replace("\\","/") + "/Bloomberg_Score")
+        if write==True:
+
+            if  not os.path.isdir(os.getcwd().replace("\\","/") + "/Bloomberg_Score"):
+                os.makedirs(os.getcwd().replace("\\","/") + "/Bloomberg_Score")
+            filename =os.getcwd().replace("\\","/") + '/Bloomberg_Score'+'/Bs_'+tick+'.txt'
 
         list_cell = ['F'+ str(row),'G'+ str(row),'H'+ str(row),'I'+ str(row),'J'+ str(row),'K'+ str(row),\
                     'L'+ str(row),'M'+ str(row),'N'+ str(row),'O'+ str(row),'P'+ str(row),'Q'+ str(row),\
                     'R'+ str(row)]
         er = []
-        filename =os.getcwd().replace("\\","/") + '/Bloomberg_Score'+'/Bs_'+tick+'.txt'
+        
     
     
     assert len(list_cell) == len(list_year), "Missing Year or Cells"
@@ -116,7 +121,7 @@ def retrieve_score(wb,tick,increase,write):
 
     
 
-    if write:
+    if write==True:
         txtfile = open(filename,'w+',encoding='utf-8') # opening text file
         txtfile.write(data.to_string()) # writing the dataframe in the text file
         txtfile.close # closing the file
