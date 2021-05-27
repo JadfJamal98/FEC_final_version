@@ -139,6 +139,46 @@ def total_sectors(path,sec_tickers,sec_names,method):
     plt.legend()
     plt.show()
 
+def sectors_companies(path,sec_tickers,sec_names, method):
+    
+    """
+    Function that creates plots for each topic showing the average score of all sectors in that topic.
+    ============================================================================================
+    Inputs:
+    file_path: the path of the directory where all the score_files are saved
+    sec_tickers: list of list of tickers for each sector / dictionary with keys according to the sector
+    method: bag of words or word2vec
+    ------
+    Output: 
+
+    """
+
+    for sec,sec_name in zip(sec_tickers,sec_names):
+        
+        for tick in sec:
+            
+            file_path = path + '/' + tick + '.txt'
+
+            if os.path.exists(file_path):
+
+                score_file = create_df(file_path,accum=True)
+                years = score_file[['Year']].values.squeeze()
+
+                min_year = int(min(years))
+                max_year = int(max(years))
+
+                plt.plot(np.arange(int(min_year), int(max_year)+1), score_file.accum.values, label = tick)
+
+            else:
+                continue
+        
+        plt.xlabel('Years')
+        plt.ylabel('Total Score')
+        plt.title('Company scores from ' + method + ' for ' + sec_name + ' sector')
+        plt.legend()
+        plt.show()
+
+
 Tech = ['AAPL','MSFT','NVDA','ADBE','INTC','ORCL','QCOM']
 Telecom = ['VZ','CSCO','NFLX','TMUS']
 Banking = ['BLK','WFC']
@@ -149,5 +189,8 @@ sec_names = ['Tech', 'Telecom', 'Banking', 'Retail', 'Health']
 topic_names = ['Governance', 'Environmental', 'Social']
 path = os.getcwd().replace('\\', '/') + '/score_files'
 
+
+# Replace method by 'Word2Vec' if needed
 topic_sectors(path, sect, sec_names, topic_names, 'Bag of Words')
 total_sectors(path, sect, sec_names, 'Bag of Words')
+sectors_companies(path, sect, sec_names, 'Bag of Words')
