@@ -39,9 +39,9 @@ def tokenize(text, sw):
         for l in clr:
             final_list += l.replace('\n',' ').split(' ')
 
-    fl = np.array(final_list).squeeze()
+    #fl = np.array(final_list).squeeze()
     filtered = []
-    for word in fl:
+    for word in final_list:
         if word.lower() in sw or len(word)>25 or not word.isalpha():
             continue
         else:

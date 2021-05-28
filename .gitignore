@@ -1,3 +1,7 @@
 
 *.html
 *.txt
+*.pyc
+*.png
+*.jpg
+*.pkl
