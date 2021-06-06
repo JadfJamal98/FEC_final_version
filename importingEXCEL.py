@@ -1,6 +1,5 @@
 from openpyxl import load_workbook
 
-
 def searchcatsub(sr,D):
     """ This function return a list of subcategory's name for a category or the categor's name for the topic
     input:
@@ -149,9 +148,6 @@ def importing(sr):
 
     return Result
 
-########################################################################################################################################################################
-# the first one was easy to deal with its the second one which is really a mess
-
 wb = load_workbook(filename="LoughranMcDonald_SentimentWordLists_2018.xlsx") # initialzing for the first Sentiment T
 
 sheetn = wb.sheetnames[1:] # the first sheet is just information we don't need
@@ -171,6 +167,3 @@ for i in range(len(sheetn)): # looping through all sheets
         listword.append(sr[k].value.lower()) # appending its lower case value
     
     Sentinents.update({sheetn[i]:listword}) # we append to the main dictionary the list collected, with a key equal to the name of the sheet
-
-
-#########################################################################################################################################################################

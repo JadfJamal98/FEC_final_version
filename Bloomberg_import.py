@@ -58,15 +58,6 @@ def retrieve_score(wb,tick,increase,write):
     
     assert row != None, "Ticker Not Found"
 
-    ############## Since you guys never answered i made it work for both incrase or just plain scores
-
-    # checking if option selected: for each:
-    #
-    #            - Check if the approriate folder is present if not create it
-    #            - define the cell's column to loop through
-    #            - define the possible error list that could be
-    #            - create a file name to append at the end
-
     if increase==True:
         if write==True:
             if  not os.path.isdir(os.getcwd().replace("\\","/") + "/Bloomberg_Score_Change"):
@@ -98,7 +89,7 @@ def retrieve_score(wb,tick,increase,write):
     score = [] #initializing the score
 
     for sheet in sheetn: # looping through all the sheets
-        
+       
         sr = wb[sheet] # assigining the searech engine
         
         topic_score = [] # creating the topic score list
@@ -174,8 +165,14 @@ def exec(list_req, wb,write,Total):
     
     return ret
 
+Tickers = ['AAPL','MSFT','NVDA','ADBE','INTC','ORCL','QCOM',
+        'VZ','CSCO','NFLX','TMUS',
+        'JPM','BAC',
+        'AMZN','WMT','NKE','KO',
+        'UNH','ABT','MRK','PFE','TMO', 'JNJ', 'CMCSA']
 
-
-    
+# Execute this to get the plots
+#exec(Tickers,wb,write=True,Total=False )
+   
 
 

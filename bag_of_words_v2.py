@@ -1,10 +1,9 @@
 import numpy as np 
-#from data_mining import *
 from collections import Counter
-#from matplotlib import pyplot as plt
-from importingEXCEL import *
-from selection import *
-from text_writer import *
+from Wordlist_Import import *
+from Selection import *
+from Text_Writer import *
+import os
 
 def get_words(dictonary):
     # returns all words from a specific topic regardless of the categories and subcategories
@@ -24,9 +23,19 @@ def get_words(dictonary):
 
 def score_c_t(topic,tick,typ,nolist):
     """
-    compute the frequence of occurence of a word for a specific company for a specific type of filing. ie. how  many times files does
-    a specific word occures in
+    Function that computes the ESG-score using the bag-of-words method for a given company and type.
+    ==============================================================================================================
 
+    Input:
+    ------
+    topic: Environmental, Social or Governance.
+    tick: the ticker of the company.
+    typ: the type, 10-K or DEF 14A
+    nolist: the list of words to not be considered when computing the score.
+
+    Output:
+    ------
+    Final score as single value. 
     """
     
     listtop = get_words(topic) #list of words from a topic
@@ -42,7 +51,7 @@ def score_c_t(topic,tick,typ,nolist):
 
     _ , listyear = find_good(pa) # list of years for a specific company and type
     listyear = listyear[tick + "_" + typ] # we want only the list where the current typ and ticker is concerned
-  
+    
     file_names = []
 
     for year in listyear:
@@ -50,10 +59,9 @@ def score_c_t(topic,tick,typ,nolist):
         if len(y) < 2:
             y = str(0) + y
         file_names.append(typ + "_" + tick + "_" + y)
-
-
+   
     for name in file_names: # looping through all file names
-
+       
         text = open(pathf+"/"+name+".txt",encoding= 'utf-8') # opening
         tokens = tokenize(text,nolist) # tokenizing
 
@@ -61,7 +69,7 @@ def score_c_t(topic,tick,typ,nolist):
 
             if key in tokens:
                 df_tick[key]+=1 # if exist in the document, add 1
-    
+                df_tick
 
     N = len(listyear) # Total Number of Files
     
@@ -76,7 +84,6 @@ def score_c_t(topic,tick,typ,nolist):
         else:
 
             w_idf.update({key: np.log(N/df_tick[key])}) # applying the formula
-    
     
     score = {}
 
@@ -169,21 +176,15 @@ def merge(rep10K,Proxy,wP,wK):
         key = ticker + "_" + str(i) # the key
         merged.update({key:value}) # updating the dictionary
     
-    
     return merged
 
-
-def plotting(merger):
+""" def plotting(merger):
 
     X = [int("20"+str(i[0][-2:])) for i in merger.items()]
     Y = [i[1] for i in merger.items()]
 
     return X , Y
 
-
-
-########################## Application ###########################################
-"""
 nonotext = open(os.getcwd().replace("\\","/") +"/nonosquare.txt","r",encoding='utf-8')
 nonolist = nonotext.readlines()[0].split(" ")
 
@@ -200,21 +201,8 @@ topics = [Governance, Environmental, Social]
 topic_names = ['Governance', 'Environmental', 'Social']
 
 
-import time
-start = time.time()
-#print(score_c_t(Governance,"AAPL","10-K",nonolist))
-#print(score_c_t(Governance,"AAPL","DEF 14A",nonolist))
-#print(score_c_t(Environmental,"AAPL","10-K",nonolist))
-#print(score_c_t(Environmental,"AAPL","DEF 14A",nonolist))
-#print(score_c_t(Social,"AAPL","10-K",nonolist))
-#print(score_c_t(Social,"AAPL","DEF 14A",nonolist))
-#print(complete(score_c_t(Environmental,"AAPL","DEF 14A",nonolist)))
-rep10K = score_c_t(Environmental,"MSFT","10-K",nonolist)
-Proxy = score_c_t(Environmental,"MSFT","DEF 14A",nonolist)
-merger= merge(rep10K,Proxy,wP=0.5,wK=0.5)
-X,Y = plotting(merger)
+rep10K = score_c_t(Environmental,"BAC","10-K",nonolist)
+#Proxy = score_c_t(Environmental,"BAC","DEF 14A",nonolist)
+#merger= merge(rep10K,Proxy,wP=0.5,wK=0.5)
 
-print(X,Y)
-print(len(X)==len(Y))
-print("Total",time.time()-start,"sec")
-"""
+ """
